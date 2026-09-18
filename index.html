@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Uso de las TIC e IA en Mi Formación Profesional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --card-bg: #161c2e;
+      --accent-indigo: #6366f1;
+      --accent-cyan: #38bdf8;
+      --accent-purple: #a855f7;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: #2e374a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Container & Slide Styling */
+    .presentation-container {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Typography & Visual Accents */
+    h1, h2, h3 {
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      border-left: 4px solid var(--accent-indigo);
+      padding-left: 0.75rem;
+    }
+
+    p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--accent-cyan);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.2rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-indigo);
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      color: var(--accent-cyan);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Table Styling */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    th, td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background: rgba(99, 102, 241, 0.2);
+      color: #fff;
+    }
+
+    tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Controls & Navigation */
+    .nav-bar {
+      background: #070a12;
+      border-top: 1px solid var(--border-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      background: var(--accent-indigo);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #4f46e5;
+    }
+
+    .btn:disabled {
+      background: var(--border-color);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .slide-number {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    ul {
+      margin-left: 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .slide { padding: 1.5rem; }
+      h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="presentation-container">
+
+    <!-- Diapositiva 1: Portada -->
+    <div class="slide active">
+      <span class="badge">Ecosistema TIC + IA 2026</span>
+      <h1>El Uso de las TIC para Mi Formación Profesional</h1>
+      <p style="font-size: 1.1rem; color: var(--text-main);">Estrategia práctica de integración de Inteligencia Artificial aplicada al contexto académico y personal.</p>
+      <div class="grid-2" style="margin-top: 2rem;">
+        <div class="card">
+          <h3>Presentado por:</h3>
+          <p>Estudiante / Profesional en Formación Continua</p>
+        </div>
+        <div class="card">
+          <h3>Enfoque Principal:</h3>
+          <p>Orquestación de LLMs (DeepSeek, ChatGPT, Claude, Gemini) para la optimización del conocimiento.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diapositiva 2: Introducción -->
+    <div class="slide">
+      <span class="badge">Marco Técnico</span>
+      <h2>Introducción: De las TIC Estáticas a la IA Generativa</h2>
+      <p>Las Tecnologías de la Información y Comunicación (TIC) han evolucionado de herramientas de almacenamiento y consulta pasiva hacia entornos interactivos donde la IA actúa como un <strong>socio sintético de pensamiento</strong>.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>TIC Tradicional</h3>
+          <ul>
+            <li>Búsqueda manual de información.</li>
+            <li>Gestión estática de documentos.</li>
+            <li>Procesos lineales de aprendizaje.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>TIC + IA Generativa</h3>
+          <ul>
+            <li>Síntesis analítica personalizada.</li>
+            <li>Asistentes interactivos de razonamiento.</li>
+            <li>Automatización de tareas complejas.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diapositiva 3: Diagnóstico de Contexto -->
+    <div class="slide">
+      <span class="badge">Diagnóstico</span>
+      <h2>Contexto Académico, Laboral y Personal</h2>
+      <p>Análisis de las necesidades operativas que justifican la adopción de un ecosistema especializado de IA:</p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Ámbito Académico</h3>
+          <p>Alta carga de lectura técnica, análisis de datos y necesidad de validación sistemática de fuentes confiables.</p>
+        </div>
+        <div class="card">
+          <h3>Ámbito Laboral</h3>
+          <p>Optimización del tiempo, redacción de informes técnicos, programación de scripts y diseño de presentaciones ejecutivas.</p>
+        </div>
+        <div class="card">
+          <h3>Ámbito Personal</h3>
+          <p>Gestión del tiempo, organización del conocimiento propio y aprendizaje autónomo de nuevas habilidades digitalizadas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diapositiva 4: Ecosistema IA Principal -->
+    <div class="slide">
+      <span class="badge">Ecosistema Base</span>
+      <h2>Matriz del Ecosistema de IA Personal</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Herramienta IA</th>
+              <th>Especialización Técnica</th>
+              <th>Casos de Uso Principales</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>DeepSeek</strong></td>
+              <td>Razonamiento lógico y tareas amplias</td>
+              <td>Resolución de problemas complejos y estructura general de trabajos académicos.</td>
+            </tr>
+            <tr>
+              <td><strong>ChatGPT</strong></td>
+              <td>Redacción puntual y comunicación</td>
+              <td>Explicaciones concretas, redacción de correos y consultas rápidas de concepto.</td>
+            </tr>
+            <tr>
+              <td><strong>Claude</strong></td>
+              <td>Código, diseño y documentos largos</td>
+              <td>Desarrollo de scripts web, arquitectura de informes extendidos y diseño creativo.</td>
+            </tr>
+            <tr>
+              <td><strong>Gemini + NotebookLM</strong></td>
+              <td>Lectura profunda y gestión de fuentes</td>
+              <td>Análisis de PDF/libros, resúmenes con citado exacto y organización de investigación.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Diapositiva 5: Herramientas Complementarias -->
+    <div class="slide">
+      <span class="badge">Ecosistema Creativo</span>
+      <h2>Herramientas Especializadas Complementarias</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Diseño & Presentaciones</h3>
+          <p><strong>Canva Magic Studio, Gamma, Napkin AI:</strong> Generación de diagramas de flujo visuales e infografías rápidas.</p>
+        </div>
+        <div class="card">
+          <h3>Generación Visual</h3>
+          <p><strong>Ideogram, Leonardo AI:</strong> Creación de activos gráficos personalizados e imágenes representativas.</p>
+        </div>
+        <div class="card">
+          <h3>Investigación Avanzada</h3>
+          <p><strong>Perplexity, Elicit, Consensus:</strong> Búsqueda académica con mapeo directo de evidencias científicas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diapositiva 6: Aplicación Práctica -->
+    <div class="slide">
+      <span class="badge">Casos Reales</span>
+      <h2>Aplicación Práctica en el Entorno Real</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Caso 1: Investigación</h3>
+          <p><strong>Gemini + NotebookLM:</strong> Carga de 5 artículos científicos para extraer hallazgos clave sin alucinaciones de contenido.</p>
+        </div>
+        <div class="card">
+          <h3>Caso 2: Desarrollo Web</h3>
+          <p><strong>Claude:</strong> Generación del código estructura de componentes interactivos e interfaces web profesionales.</p>
+        </div>
+        <div class="card">
+          <h3>Caso 3: Síntesis Ejecutiva</h3>
+          <p><strong>DeepSeek + ChatGPT:</strong> Estructuración teórica del problema y refinamiento del tono de comunicación.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diapositiva 7: Beneficios Obtenidos -->
+    <div class="slide">
+      <span class="badge">Resultados</span>
+      <h2>Beneficios en la Formación Profesional</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Eficiencia Temporal</h3>
+          <p>Reducción del 40% en el tiempo dedicado a la lectura exploratoria y sistematización inicial de información.</p>
+        </div>
+        <div class="card">
+          <h3>Profundidad Conceptual</h3>
+          <p>Capacidad para contrastar perspectivas de múltiples modelos sobre un mismo problema técnico o académico.</p>
+        </div>
+        <div class="card">
+          <h3>Calidad de Entregables</h3>
+          <p>Mejora significativa en la presentación visual de proyectos, redacción técnica y calidad del código estructurado.</p>
+        </div>
+        <div class="card">
+          <h3>Autonomía Digital</h3>
+          <p>Desarrollo de habilidades para el aprendizaje autodidacta guiado por asistentes virtuales especializados.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diapositiva 8: Gobierno Ético -->
+    <div class="slide">
+      <span class="badge">Ética y Responsabilidad</span>
+      <h2>Retos Éticos y Gestión de Riesgos</h2>
+      <p>Lineamientos para garantizar una adopción responsable de las TIC con Inteligencia Artificial:</p>
+      <ul>
+        <li><strong>Prevención de Alucinaciones:</strong> Verificación cruzada mandatory de fuentes bibliográficas clave.</li>
+        <li><strong>Privacidad de Datos:</strong> No cargar información confidencial, personal o sensible en modelos abiertos.</li>
+        <li><strong>Principio Human-in-the-Loop:</strong> La IA actúa como borrador/asistente; el criterio humano aprueba el resultado final.</li>
+        <li><strong>Originalidad:</strong> Evitar la copia textual no atribuida, garantizando la autoría e integridad académica.</li>
+      </ul>
+    </div>
+
+    <!-- Diapositiva 9: Hoja de Ruta -->
+    <div class="slide">
+      <span class="badge">Plan de Acción</span>
+      <h2>Hoja de Ruta a 6 Meses para Mejora Continua</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Meses 1 - 2</h3>
+          <p>Estandarización de plantillas de prompts para análisis con NotebookLM y redacción con ChatGPT.</p>
+        </div>
+        <div class="card">
+          <h3>Meses 3 - 4</h3>
+          <p>Integración de flujos de automatización entre Claude y herramientas de desarrollo visual (Napkin/Canva).</p>
+        </div>
+        <div class="card">
+          <h3>Meses 5 - 6</h3>
+          <p>Evaluación semestral de nuevas herramientas emergentes y ajuste de la matriz de uso personal.</p>
+        </div>
+        <div class="card">
+          <h3>Meta Continua</h3>
+          <p>Mantener una práctica profesional guiada por el pensamiento crítico e innovación tecnológica.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diapositiva 10: Conclusión -->
+    <div class="slide">
+      <span class="badge">Cierre</span>
+      <h2>Conclusiones y Reflexión Final</h2>
+      <p style="font-size: 1.1rem; color: #fff; margin-bottom: 1.5rem;">La integración estratégica de las TIC y la IA transforma el aprendizaje en un proceso dinámico, eficiente y altamente adaptativo.</p>
+      <div class="card" style="border-color: var(--accent-cyan); background: rgba(56, 189, 248, 0.05);">
+        <h3>Reflexión Clave:</h3>
+        <p style="color: #fff; font-style: italic;">"La Inteligencia Artificial no busca reemplazar el intelecto humano, sino ampliar nuestras capacidades operativas para enfocarnos en la creatividad, el análisis crítico y la toma de decisiones estratégicas."</p>
+      </div>
+    </div>
+
+    <!-- Diapositiva 11: Referencias APA -->
+    <div class="slide">
+      <span class="badge">Fuentes</span>
+      <h2>Referencias Bibliográficas (APA 7)</h2>
+      <ul style="font-size: 0.8rem; line-height: 1.5;">
+        <li>Chan, C. K. Y. (2023). A comprehensive AI policy education framework for university teaching and learning. <em>International Journal of Educational Technology in Higher Education</em>, 20(1), 38.</li>
+        <li>Dotan, R., Parker, L. S., & Rudzewicz, J. (2024). Responsible adoption of generative AI in higher education. <em>ACM Conference on Fairness, Accountability, and Transparency</em>, 2033–2046.</li>
+        <li>Mah, D. K., & Groß, N. (2024). Artificial intelligence in higher education: Faculty use and needs. <em>IJETHE</em>, 21(1), 58.</li>
+        <li>Mollick, E. (2024). <em>Co-Intelligence: Living and Working with AI</em>. Portfolio / Penguin Random House.</li>
+        <li>OECD. (2023). <em>OECD Digital Education Outlook 2023: Towards an AI-driven ecosystem</em>. OECD Publishing.</li>
+        <li>Renta-Davids, A. I., et al. (2025). Navigating challenges and opportunities of AI in educational leadership. <em>Review of Education</em>, 13(2), e70101.</li>
+        <li>UNESCO. (2023). <em>Guidance for generative AI in education and research</em>. UNESCO Publishing.</li>
+        <li>Zawacki-Richter, O., et al. (2019). Systematic review of research on artificial intelligence applications in higher education. <em>IJETHE</em>, 16(39).</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Navegación -->
+  <div class="nav-bar">
+    <button class="btn" id="prevBtn" onclick="changeSlide(-1)" disabled>Anterior</button>
+    <span class="slide-number" id="slideNum">Diapositiva 1 de 11</span>
+    <button class="btn" id="nextBtn" onclick="changeSlide(1)">Siguiente</button>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideNum = document.getElementById('slideNum');
+
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+      slideNum.textContent = `Diapositiva ${currentSlide + 1} de ${slides.length}`;
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === slides.length - 1;
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide < 0) currentSlide = 0;
+      if (currentSlide >= slides.length) currentSlide = slides.length - 1;
+      updateSlide();
+    }
+
+    // Navegación con teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) changeSlide(1);
+      if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
+    });
+  </script>
+</body>
+</html>
